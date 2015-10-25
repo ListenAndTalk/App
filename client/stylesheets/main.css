@@ -46,5 +46,15 @@ legend {
 }
 
 .navHeading {
-    font-size: 250%;
+    font-family: 'brandon_grotesqueRgIt';
+    font-size: 40px;
+    color: #3b3331;
+    line-height: 80px;
+    font-weight: 400;
+    text-align: left;
+    /*padding-top: 40px;*/
+}
+
+.header {
+    margin: 10px;
 }
