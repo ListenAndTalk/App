@@ -1,21 +1,22 @@
-<div>
-          <span class="navHeading">Listen and Talk Attendance Tracking</span>
-        <ul class="nav navbar-nav pull-right">
+<div class="header">
+    <img class="logo" src="./img/logo.png">
+    <span class="navHeading text-uppercase"> Attendance Tracking</span>
+    <ul class="nav navbar-nav pull-right">
         <li><a href=""><span class="glyphicon glyphicon-user"></span> Welcome {{ auth.profile.given_name }}!</a></li>
         <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-      </ul>
+    </ul>
 </div>
 <nav class="navbar navbar-default" ng-controller="navCtrl" ng-init="init()">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" ng-click="select(this)" href="#/">Home</a>
+    <div class="container-fluid main_menu">
+        <div class="navbar-header header_bottom">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="navbar-brand" ng-click="select(this)" href="./">Home</a>
+                </li>
+                <li ng-repeat="nav in navList" ng-class="{active: isActive(nav)}">
+                    <a href="{{nav.href}}" ng-click="select(nav)" ng-bind="nav.name"></a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div>
-      <ul class="nav navbar-nav">
-        <li ng-repeat="nav in navList" ng-class="{active: isActive(nav)}">
-          <a href="{{nav.href}}" ng-click="select(nav)" ng-bind="nav.name"></a>
-        </li>
-      </ul>
-    </div>
-  </div>
 </nav>
