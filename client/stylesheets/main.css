@@ -39,22 +39,65 @@ legend {
     width:inherit; /* Or auto */
     padding:0 10px; /* To give a bit of padding on the left and right */
     border-bottom:none;
-}
-
-.legendDiv {
-    width: 50%;
+    text-transform: uppercase;
 }
 
 .navHeading {
-    font-family: 'brandon_grotesqueRgIt';
-    font-size: 40px;
+    font-weight: 600;
+    font-size: 1.1em;
     color: #3b3331;
-    line-height: 80px;
-    font-weight: 400;
-    text-align: left;
+    display: inline-block;
+    /*line-height: 80px;*/
+    /*font-weight: 400;*/
+    /*text-align: left;*/
     /*padding-top: 40px;*/
 }
 
-.header {
+.navTop {
+    background-color: lightgrey;
+}
+
+.non-list {
+    list-style: none;
+    margin-bottom: 0px;
+    text-align: right;
+}
+
+.non-list > li{
+    display: inline-block;
+}
+
+.navHeading > img {
+    height: 3em;
+}
+
+.navHeading > span {
+    line-height: 1.5em;
+    vertical-align: bottom;
+    font-size: 1.5em;
+    display: inline-block;
+}
+
+.header{
+    border: solid white;
+}
+.header > * {
     margin: 10px;
+    border: solid deeppink; /*debug*/
+    text-wrap: none;
+}
+
+.header > * > * {
+    border: solid blue;
+}
+
+
+/*debugging*/
+body {
+    /*background-color: grey;*/
+    font-family: 'Cabin', serif;
+}
+
+div {
+    /*background-color: lightgrey;*/
 }

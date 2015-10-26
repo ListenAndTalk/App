@@ -1,17 +1,31 @@
-<div class="header">
-    <img class="logo" src="./img/logo.png">
-    <span class="navHeading text-uppercase"> Attendance Tracking</span>
-    <ul class="nav navbar-nav pull-right">
-        <li><a href=""><span class="glyphicon glyphicon-user"></span> Welcome {{ auth.profile.given_name }}!</a></li>
-        <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+<link href='https://fonts.googleapis.com/css?family=Cabin:400,400italic,600,600italic' rel='stylesheet' type='text/css'>
+<!-- bower:css -->
+<link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="../vendor/bootstrap-social/bootstrap-social.css"/>
+<link rel="stylesheet" href="../vendor/angular-motion/dist/angular-motion.css"/>
+<!-- endbower -->
+<!-- injector:css -->
+<link rel="stylesheet" href="../stylesheets/main.css">
+<!-- endinjector -->
+
+<div class="container-fluid navTop">
+    <ul class="pull-right non-list">
+        <li><span class="glyphicon glyphicon-user"></span> Welcome {{ auth.profile.given_name }} </li>
+        <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-off"></span>&nbsp;Logout</a></li>
     </ul>
+    <div class="navHeading col-md-6">
+        <img class="logo" src="../img/logo.png">
+        <span class="text-uppercase">Attendance Tracker</span>
+    </div>
 </div>
+
 <nav class="navbar navbar-default" ng-controller="navCtrl" ng-init="init()">
-    <div class="container-fluid main_menu">
-        <div class="navbar-header header_bottom">
+    <div class="container-fluid ">
+        <div class="navbar-header">
             <ul class="nav navbar-nav">
-                <li>
-                    <a class="navbar-brand" ng-click="select(this)" href="./">Home</a>
+                <li class="active">
+                    <a ng-click="select(this)" href="./">Home</a>
                 </li>
                 <li ng-repeat="nav in navList" ng-class="{active: isActive(nav)}">
                     <a href="{{nav.href}}" ng-click="select(nav)" ng-bind="nav.name"></a>

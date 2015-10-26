@@ -1,16 +1,29 @@
+<link href='https://fonts.googleapis.com/css?family=Cabin:400,400italic,600,600italic' rel='stylesheet' type='text/css'>
+<!-- bower:css -->
+<link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="../vendor/bootstrap-social/bootstrap-social.css" />
+<link rel="stylesheet" href="../vendor/angular-motion/dist/angular-motion.css" />
+<!-- endbower -->
+<!-- injector:css -->
+<link rel="stylesheet" href="../stylesheets/main.css">
+<!-- endinjector -->
+
+
+
 <div class="container-fluid">
-    <div class="legendDiv">
+
+    <div class="col-xs-12 col-md-5">
         <fieldset>
             <legend>Activities Assigned to Me:</legend>
             <div ng-repeat="activity in activityNames">
                 <strong>{{activity.name}}</strong>
                 <a href="#/markAttendance">Mark Attendance</a>
-                
             </div>
         </fieldset>
     </div>
-    
-    <div class="legendDiv">
+
+    <div class="col-xs-12 col-md-5">
         <fieldset>
             <legend>View Attendance For:</legend>
             <select class="form-control">
@@ -19,5 +32,5 @@
             </select>
         </fieldset>
     </div>
-    
+
 </div>
