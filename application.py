@@ -3,15 +3,30 @@ from bottle import route
 # from bottle.ext import sqlalchemy
 import bottle.ext.sqlalchemy
 import latci.database
+import functools
 
 from latci import config
 import latci.json
 
-app = bottle.app()
+application = bottle.app()
+application.uninstall(bottle.JSONPlugin)
+application.install(bottle.JSONPlugin(json_dumps=functools.partial(latci.json.dumps, indent=True)))
 
-# Required for proper initialization of routes
+# Install SQLAlchemy plguin
+application.install(
+    bottle.ext.sqlalchemy.Plugin(
+        latci.database.engine, # SQLAlchemy engine created with create_engine function.
+        None, # SQLAlchemy metadata, required only if create=True.
+        keyword='db', # Keyword used to inject session database in a route (default 'db').
+        create=False, # If it is true, execute `metadata.create_all(engine)` when plugin is applied (default False).
+        commit=False, # If it is true, plugin commit changes after route is executed (default True).
+        use_kwargs=True # If it is true and keyword is not defined, plugin uses **kwargs argument to inject session database (default False).
+    )
+)
+
+
+# Required for proper initialization of routes.  Can't be before bottle.app() calls.
 import latci.views
-import functools
 
 
 # This route conflicts with all other routes, and because of how bottle handles routes, it would always win if it was
@@ -19,10 +34,6 @@ import functools
 # and works around this behavior.  Yes, it's a kludge, but really whatever framework is serving us should be doing the
 # entire serving static files thing anyways.
 if config.SERVE_STATIC_FILES:
-    import inspect
-    import os
-    base_path = os.path.dirname(os.path.abspath(inspect.getframeinfo(inspect.currentframe()).filename))
-    static_path = os.path.abspath(base_path + "/../client")
     @route('/', skip=True)
     @route('/<path:path>', skip=True, method='ANY')
     def serve_static_files(path=None):
@@ -30,7 +41,7 @@ if config.SERVE_STATIC_FILES:
             raise bottle.HTTPError(status=405, headers={'Allow': 'GET, HEAD'})
         if path is None:
             path = 'index.html'
-        return bottle.static_file(path, root='../client/')
+        return bottle.static_file(path, root=config.STATIC_FILES_PATH)
 
 
 @route('/static/<path:path>', skip=True)
@@ -113,22 +124,6 @@ def main(argv):
     Main entry point.
     """
     # Uninstall the JSON plugin Bottle installs by default, and add one configured the way we want.
-    app = bottle.app()
-    app.uninstall(bottle.JSONPlugin)
-    app.install(bottle.JSONPlugin(json_dumps=functools.partial(latci.json.dumps, indent=True)))
-
-    # Install SQLAlchemy plguin
-    app.install(
-        bottle.ext.sqlalchemy.Plugin(
-            latci.database.engine, # SQLAlchemy engine created with create_engine function.
-            None, # SQLAlchemy metadata, required only if create=True.
-            keyword='db', # Keyword used to inject session database in a route (default 'db').
-            create=False, # If it is true, execute `metadata.create_all(engine)` when plugin is applied (default False).
-            commit=False, # If it is true, plugin commit changes after route is executed (default True).
-            use_kwargs=True # If it is true and keyword is not defined, plugin uses **kwargs argument to inject session database (default False).
-        )
-    )
-
     import sys
     if 'shell' in sys.argv:
         sys.exit(cli_shell())
