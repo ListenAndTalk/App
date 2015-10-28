@@ -9,27 +9,41 @@
 <link rel="stylesheet" href="../stylesheets/main.css">
 <!-- endinjector -->
 
-
-
 <div class="container-fluid">
-
-    <div class="col-xs-12 col-md-5">
+    <h2>Home</h2><p>Quick links for common tasks</p>
+    <div class="col-xs-12 col-md-6">
         <fieldset>
-            <legend>Activities Assigned to Me:</legend>
+            <legend>Assigned to Me</legend>
             <div ng-repeat="activity in activityNames">
                 <strong>{{activity.name}}</strong>
-                <a href="#/markAttendance">Mark Attendance</a>
+                <a href="#/markAttendance"><button>Mark Attendance</button></a>
+                <a href="#/activity"><button>View Roster</button></a>
             </div>
         </fieldset>
     </div>
 
-    <div class="col-xs-12 col-md-5">
+    <div class="col-xs-12 col-md-6">
         <fieldset>
-            <legend>View Attendance For:</legend>
-            <select class="form-control">
+            <legend>View Attendance</legend>
+            <label>By Day:</label><br>
+            <a href="#/viewAttendance">Today's Attendance {{date | date}}</a>
+<br>
+            <label>By Student:</label>
+           <div class="form-group">
+                <select class="form-control">
                 <option ng-repeat="student in students" value="{{student.id}}">{{student.name_first}} {{student.name_last}}
                 </option>
             </select>
+           </div>
+        </fieldset>
+    </div>
+
+    <div class="col-xs-12 col-md-6 pull-right">
+        <fieldset>
+            <legend>Admin</legend>
+            <a href="#/newstudent"><button>Add New Student</button></a>
+            <a href="#/newactivity"><button>Add New Activity</button></a>
+            <a href="#/newuser"><button>Add New Staff</button></a>
         </fieldset>
     </div>
 

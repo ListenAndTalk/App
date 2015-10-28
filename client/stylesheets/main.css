@@ -37,9 +37,14 @@ legend {
     border-image-outset: initial;
     border-image-repeat: initial;
     width:inherit; /* Or auto */
-    padding:0 10px; /* To give a bit of padding on the left and right */
+    /* To give a bit of padding on the left and right */
+    padding-top: 0;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 0;
     border-bottom:none;
     text-transform: uppercase;
+    margin-bottom: 0px;
 }
 
 .navHeading {
@@ -101,3 +106,11 @@ body {
 div {
     /*background-color: lightgrey;*/
 }
+
+h2 {
+    /*margin-left: 1em;*/
+}
+
+/*.content {*/
+    /*background-color: #e7e7e7;*/
+/*}*/
