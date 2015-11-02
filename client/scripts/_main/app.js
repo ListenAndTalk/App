@@ -1,8 +1,6 @@
+var app = angular.module('app', ['ui.router', 'mgcrea.ngStrap', 'ngAnimate', 'restangular', 'auth0', 'angular-storage', 'angular-jwt', 'ui.bootstrap']);
 
-var app = angular.module('app', ['ui.router', 'mgcrea.ngStrap', 'ngAnimate', 'restangular', 'auth0', 'angular-storage', 'angular-jwt']);
-
-
-app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProvider, jwtInterceptorProvider){
+app.config(function ($stateProvider, $urlRouterProvider, authProvider, RestangularProvider, $httpProvider, jwtInterceptorProvider) {
     //authProvider.init({
     //  domain: 'listentalk.auth0.com',
     //  clientID: 'pCGXGZvE7a7aNkEXi0YHS9WEp4Tw9N6Y',
@@ -16,17 +14,44 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
 
     //$httpProvider.interceptors.push('jwtInterceptor');
 
+    var newBaseUrl = "";
+    if (window.location.hostname == "localhost") {
+        newBaseUrl = "http://localhost:8000/api/v2";
+    } else {
+        var deployedAt = window.location.href.substring(0, window.location.href);
+        newBaseUrl = deployedAt + "/api/v2";
+    }
+    RestangularProvider.setBaseUrl(newBaseUrl);
+
+    // add a response intereceptor
+    RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+        var extractedData;
+        // .. to look for getList operations
+        if (operation === "getList") {
+            // .. and handle the data and meta data
+            extractedData = data.data;
+            //extractedData.error = error;
+           // extractedData.paging = paging;
+        } else {
+            extractedData = data.data;
+        }
+        return extractedData;
+    });
+
+
+    $urlRouterProvider.otherwise('/');
+
     $stateProvider
         .state('home', {
             url: '/',
             views: {
                 "nav_top": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/navTop.html"
+                    templateUrl: "./partials/navTop.html"
                 },
                 "main": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/home.html"
+                    templateUrl: "./partials/home.html"
                 }
             },
             data: {requiresLogin: false}
@@ -36,11 +61,11 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
             views: {
                 "nav_top": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/navTop.html"
+                    templateUrl: "./partials/navTop.html"
                 },
                 "main": {
                     controller: 'activityCtrl',
-                    templateUrl: "../partials/activity.html"
+                    templateUrl: "./partials/activity.html"
                 }
             },
             data: {requiresLogin: false}
@@ -48,10 +73,10 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
         .state('activity.add', {
             views: {
                 "nav_side": {
-                    templateUrl: "../partials/activity.sidenav.html"
+                    templateUrl: "./partials/activity.sidenav.html"
                 },
                 "content": {
-                    templateUrl: "../partials/activity.add.html"
+                    templateUrl: "./partials/activity.add.html"
                 }
             },
             data: {requiresLogin: false}
@@ -59,10 +84,10 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
         .state('activity.view', {
             views: {
                 "nav_side": {
-                    templateUrl: "../partials/activity.sidenav.html"
+                    templateUrl: "./partials/activity.sidenav.html"
                 },
                 "content": {
-                    templateUrl: "../partials/activity.view.html"
+                    templateUrl: "./partials/activity.view.html"
                 }
             },
             data: {requiresLogin: false}
@@ -70,10 +95,10 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
         .state('activity.update', {
             views: {
                 "nav_side": {
-                    templateUrl: "../partials/activity.sidenav.html"
+                    templateUrl: "./partials/activity.sidenav.html"
                 },
                 "content": {
-                    templateUrl: "../partials/activity.update.html"
+                    templateUrl: "./partials/activity.update.html"
                 }
             },
             data: {requiresLogin: false}
@@ -83,11 +108,11 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
             views: {
                 "nav_top": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/navTop.html"
+                    templateUrl: "./partials/navTop.html"
                 },
                 "main": {
                     controller: 'studentsCtrl',
-                    templateUrl: "../partials/newstudent.html"
+                    templateUrl: "./partials/newstudent.html"
                 }
             }
         })
@@ -96,11 +121,11 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
             views: {
                 "nav_top": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/navTop.html"
+                    templateUrl: "./partials/navTop.html"
                 },
                 "main": {
                     controller: 'staffCtrl',
-                    templateUrl: "../partials/newstaff.html"
+                    templateUrl: "./partials/newstaff.html"
                 }
             }
         })
@@ -109,11 +134,11 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
             views: {
                 "nav_top": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/navTop.html"
+                    templateUrl: "./partials/navTop.html"
                 },
                 "main": {
                     controller: 'studentsCtrl',
-                    templateUrl: "../partials/markAttendance.html"
+                    templateUrl: "./partials/markAttendance.html"
                 }
             },
             data: {requiresLogin: false}
@@ -123,11 +148,11 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
             views: {
                 "nav_top": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/navTop.html"
+                    templateUrl: "./partials/navTop.html"
                 },
                 "main": {
                     controller: 'viewAttendanceCtrl',
-                    templateUrl: "../partials/viewAttendance.html"
+                    templateUrl: "./partials/viewAttendance.html"
                 }
             },
             data: {requiresLogin: false}
@@ -137,11 +162,11 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
             views: {
                 "nav_top": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/navTop.html"
+                    templateUrl: "./partials/navTop.html"
                 },
                 "main": {
                     controller: 'settingCtrl',
-                    templateUrl: "../partials/settings.html"
+                    templateUrl: "./partials/settings.html"
                 }
             },
             data: {requiresLogin: false}
@@ -151,7 +176,7 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
             views: {
                 "main": {
                     controller: 'loginCtrl',
-                    templateUrl: "../partials/login.html"
+                    templateUrl: "./partials/login.html"
                 }
             }
         })
@@ -160,19 +185,18 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProv
             views: {
                 "nav_top": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/navTop.html"
+                    templateUrl: "./partials/navTop.html"
                 },
                 "main": {
                     controller: 'homeCtrl',
-                    templateUrl: "../partials/userinfo.html"
+                    templateUrl: "./partials/userinfo.html"
                 }
             },
             data: {requiresLogin: false}
         });
 
-    $urlRouterProvider.otherwise('/');
-
-});
+})
+;
 
 
 //.run(function(auth) {

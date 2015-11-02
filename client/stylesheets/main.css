@@ -111,6 +111,15 @@ h2 {
     /*margin-left: 1em;*/
 }
 
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
 /*.content {*/
     /*background-color: #e7e7e7;*/
 /*}*/

@@ -18,13 +18,44 @@ app.controller('homeCtrl', function($scope, mainFactory, auth, store, $window, $
   // }
   
   //auth.profile.email
-  mainFactory.getActivityByTeacherEmail("staff1@example.com", function(result) {
+  mainFactory.getActivityByTeacherEmail((auth.profile) ? auth.profile.email : "staff1@example.com", function(result) {
     $scope.activityNames = result;
   });
     
    mainFactory.getAllStudents(function(result) {
-    $scope.students = result;
-         // console.log(result);
+       //var studentarray = [];
+       //for (var index = 0; index < result.length; index++){
+       //    studentarray[index] = result[index].value;
+       //    studentarray[index].name = studentarray[index].name_first
+       //        + " " + studentarray[index].name_last;
+       //}
+       //$scope.students = studentarray;
+       //console.log(studentarray);
+
+       $scope.students = result;
+       console.log(result);
   });
-  
+
+
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.dt = null;
+    };
+
+    $scope.formats = ['longDate', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+
+    $scope.open = function($event) {
+        $scope.status.opened = true;
+    };
+
+    $scope.status = {
+        opened: false
+    };
+
+
 });

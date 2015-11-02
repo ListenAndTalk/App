@@ -23,7 +23,8 @@
     "ui-router": "~0.2.15",
     "angular-motion": "~0.4.2",
     "angular-jwt": "*",
-    "restangular": "~1.5.1"
+    "restangular": "~1.5.1",
+    "angular-bootstrap": "~0.14.3"
   },
   "overrides": {
     "bootstrap": {

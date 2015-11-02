@@ -4,7 +4,7 @@ app.factory('mainFactory', function ($http, Restangular, $window){
   var factory = {};
 
    factory.getTeachers = function(callback) {
-		 Restangular.all('/api/v1/teachers/').getList()
+		 Restangular.all('teacher').getList()
        .then(function(result){
          callback(result);
        });
@@ -12,20 +12,20 @@ app.factory('mainFactory', function ($http, Restangular, $window){
 
   // Student
   factory.getAllStudents = function(callback) {
-    Restangular.all('api/v1/students').getList()
+    Restangular.all('student').getList()
       .then(function(result){
         callback(result);
       });
   };
   factory.getAllStudentsByDate = function(date, callback) {
-    Restangular.all('api/v1/students/date/'+ date).getList()
+    Restangular.all('student/date/'+ date).getList()
       .then(function(result){
         callback(result);
       });
   };
 
   factory.getAllActivities = function(callback) {
-    Restangular.all('api/v1/activity').getList()
+    Restangular.all('activity').getList()
       .then(function(result){
         callback(result);
       });
@@ -33,14 +33,14 @@ app.factory('mainFactory', function ($http, Restangular, $window){
 
   // Teacher
   factory.getTeacherByEmail = function(email, callback) {
-    Restangular.all('api/v1/teachers/' + email).getList()
+    Restangular.all('teacher/' + email).getList()
       .then(function(result){
         callback(result);
       });
   };
 
   factory.getActivityByTeacherEmail = function(email, callback) {
-    Restangular.all('api/v1/teachers/' + email + '/activity').getList()
+    Restangular.all('teacher/' + email + '/activity').getList()
       .then(function(result){
         callback(result);
       });
@@ -48,21 +48,21 @@ app.factory('mainFactory', function ($http, Restangular, $window){
 
 
   factory.searchByActivityAndDate = function(activityId, date, callback) {
-    Restangular.all('/api/v1/students/activity').getList({"activityId": activityId, "date": date})
+    Restangular.all('student/activity').getList({"activityId": activityId, "date": date})
       .then(function(result){
         callback(result);
       });
   };
 
   factory.addNewStudent = function(newstudent, callback) {
-    Restangular.all('/api/v1/students/').post(newstudent)
+    Restangular.all('student/').post(newstudent)
       .then(function(result){
         callback(result);
       });
   };
 
   factory.removeStudent = function(studentid, callback) {
-    Restangular.all('/api/v1/students/' + studentid).remove()
+    Restangular.all('student/' + studentid).remove()
       .then(function(result){
         callback(result);
       });
@@ -71,21 +71,21 @@ app.factory('mainFactory', function ($http, Restangular, $window){
   // Staff
 
   factory.getAllStaff = function(callback) {
-    Restangular.all('/api/v1/teachers/').getList()
+    Restangular.all('teacher/').getList()
       .then(function(result){
         callback(result);
       });
   };
 
   factory.addNewStaff = function(newstaff, callback) {
-    Restangular.all('/api/v1/teachers/').post(newstaff)
+    Restangular.all('teacher/').post(newstaff)
       .then(function(result){
         callback(result);
       });
   };
 
   factory.removeStaff = function(staffid, callback) {
-    Restangular.all('/api/v1/teachers/' + staffid).remove()
+    Restangular.all('teacher/' + staffid).remove()
       .then(function(result){
         callback(result);
       });
@@ -93,7 +93,7 @@ app.factory('mainFactory', function ($http, Restangular, $window){
 
   // Category
   factory.getAllCategory = function(callback) {
-    Restangular.all('/api/v1/categories/').getList()
+    Restangular.all('categories/').getList()
       .then(function(result){
         callback(result);
       });
@@ -101,7 +101,7 @@ app.factory('mainFactory', function ($http, Restangular, $window){
 
   // Location
   factory.getAllLocation = function(callback) {
-    Restangular.all('/api/v1/locations/').getList()
+    Restangular.all('locations/').getList()
       .then(function(result){
         callback(result);
       });
@@ -109,14 +109,14 @@ app.factory('mainFactory', function ($http, Restangular, $window){
 
   //
   factory.getAllActivity = function(callback) {
-    Restangular.all('/api/v1/detailactivity/').getList()
+    Restangular.all('detailactivity/').getList()
       .then(function(result){
         callback(result);
       });
   };
 
   factory.addActivity = function(newActivity, callback) {
-    Restangular.all('/api/v1/activity/').post(newActivity)
+    Restangular.all('activity/').post(newActivity)
       .then(function(result){
         callback(result);
       });
@@ -124,13 +124,13 @@ app.factory('mainFactory', function ($http, Restangular, $window){
 
   //Include date
   factory.searchHistoryByStudentAndDate = function(studentId, date, callback) {
-    Restangular.all('/api/v1/students/'+ studentId +'/activities').getList()
+    Restangular.all('student/'+ studentId +'/activities').getList()
       .then(function(result){
         callback(result);
       });
   };
 factory.searchHistoryByStudent = function(studentId, callback) {
-    Restangular.all('/api/v1/students/'+ studentId +'/activities').getList()
+    Restangular.all('student/'+ studentId +'/activities').getList()
       .then(function(result){
         callback(result);
       });
@@ -143,14 +143,14 @@ factory.searchHistoryByStudent = function(studentId, callback) {
       students["data"].push({"STUDENT_ID": key, "STATUS_ID": studentsToCheckIn[key]["status"], "COMMENT": studentsToCheckIn[key]["comment"], "ACTIVITY_ID": activity_id, "DATE": date})
     }
     console.log(students);
-    Restangular.all('/api/v1/students/activity').post(students)
+    Restangular.all('student/activity').post(students)
     .then(function(result){
       callback(result);
     });
   };
 
   factory.getActivityById = function(id, callback) {
-    Restangular.all('/api/v1/activity/'+ id).getList()
+    Restangular.all('activity/'+ id).getList()
       .then(function(result){
         callback(result);
       });
