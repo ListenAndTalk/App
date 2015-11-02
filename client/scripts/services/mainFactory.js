@@ -52,21 +52,21 @@ app.factory('mainFactory', function ($http, Restangular, $window){
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   factory.addNewStudent = function(newstudent, callback) {
     Restangular.all('/api/v1/students/').post(newstudent)
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   factory.removeStudent = function(studentid, callback) {
     Restangular.all('/api/v1/students/' + studentid).remove()
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   // Staff
 
@@ -75,21 +75,21 @@ app.factory('mainFactory', function ($http, Restangular, $window){
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   factory.addNewStaff = function(newstaff, callback) {
     Restangular.all('/api/v1/teachers/').post(newstaff)
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   factory.removeStaff = function(staffid, callback) {
     Restangular.all('/api/v1/teachers/' + staffid).remove()
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   // Category
   factory.getAllCategory = function(callback) {
@@ -97,7 +97,7 @@ app.factory('mainFactory', function ($http, Restangular, $window){
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   // Location
   factory.getAllLocation = function(callback) {
@@ -105,7 +105,7 @@ app.factory('mainFactory', function ($http, Restangular, $window){
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   //
   factory.getAllActivity = function(callback) {
@@ -113,14 +113,14 @@ app.factory('mainFactory', function ($http, Restangular, $window){
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   factory.addActivity = function(newActivity, callback) {
     Restangular.all('/api/v1/activity/').post(newActivity)
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   //Include date
   factory.searchHistoryByStudentAndDate = function(studentId, date, callback) {
@@ -128,13 +128,13 @@ app.factory('mainFactory', function ($http, Restangular, $window){
       .then(function(result){
         callback(result);
       });
-  }
+  };
 factory.searchHistoryByStudent = function(studentId, callback) {
     Restangular.all('/api/v1/students/'+ studentId +'/activities').getList()
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
   factory.checkIn = function(activity_id, studentsToCheckIn, date, callback) {
     var students = {"data": []};
@@ -154,7 +154,7 @@ factory.searchHistoryByStudent = function(studentId, callback) {
       .then(function(result){
         callback(result);
       });
-  }
+  };
 
 
   return factory;

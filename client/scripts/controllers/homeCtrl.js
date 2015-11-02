@@ -9,7 +9,7 @@ app.controller('homeCtrl', function($scope, mainFactory, auth, store, $window, $
     store.remove('profile');
     store.remove('token');
     $window.location.reload();
-  }
+  };
 
   // $scope.post = function() {
   //   mainFactory.test_post($scope.postData, function(result) {
