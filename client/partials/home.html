@@ -26,16 +26,17 @@
                 Today's Attendance {{date | date}}
             </a>
 
-                    <p class="input-group">
-                        <input type="date" class="form-control" uib-datepicker-popup ng-model="dt"
-                               is-open="status.opened"
-                               datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
-                               close-text="Close"/>
-                        <span class="input-group-btn">
-                         <button type="button" class="btn btn-default" ng-click="open($event)"><i
-                        class="glyphicon glyphicon-calendar"></i></button>
-                         </span>
-                    </p>
+            <p class="input-group">
+                <input type="date" class="form-control" uib-datepicker-popup ng-model="dt"
+                       is-open="status.opened"
+                       datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                       close-text="Close"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
 
 
             <label>By Student:</label><br>

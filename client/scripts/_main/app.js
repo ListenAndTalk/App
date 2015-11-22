@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'mgcrea.ngStrap', 'ngAnimate', 'restangular', 'auth0', 'angular-storage', 'angular-jwt', 'ui.bootstrap']);
+var app = angular.module('app', ['ui.router', 'mgcrea.ngStrap', 'ngAnimate', 'restangular', 'auth0', 'angular-storage', 'angular-jwt', 'ui.bootstrap', 'pr.auth']);
 
 app.config(function ($stateProvider, $urlRouterProvider, authProvider, RestangularProvider, $httpProvider, jwtInterceptorProvider) {
     //authProvider.init({
@@ -39,7 +39,7 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, Restangul
     });
 
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/'); // Resolves unmatched urls to '/'
 
     $stateProvider
         .state('home', {
@@ -171,15 +171,15 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, Restangul
             },
             data: {requiresLogin: false}
         })
-        .state('login', {
-            url: '/login',
-            views: {
-                "main": {
-                    controller: 'loginCtrl',
-                    templateUrl: "./partials/login.html"
-                }
-            }
-        })
+        //.state('login', {
+        //    url: '/login',
+        //    views: {
+        //        "main": {
+        //            controller: 'loginCtrl',
+        //            templateUrl: "./partials/login.html"
+        //        }
+        //    }
+        //})
         .state('userinfo', {
             url: '/userinfo',
             views: {
@@ -195,6 +195,12 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, Restangul
             data: {requiresLogin: false}
         });
 
+
+    authProvider.init({
+        domain: 'listentalk.auth0.com',
+        clientID: 'pCGXGZvE7a7aNkEXi0YHS9WEp4Tw9N6Y'
+    });
+
 })
 ;
 
@@ -205,7 +211,7 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, Restangul
 //});
 
 
-//
+
 //app
 //.run(function($rootScope, auth, store, jwtHelper, $location) {
 //  // This events gets triggered on refresh or URL change
@@ -223,3 +229,9 @@ app.config(function ($stateProvider, $urlRouterProvider, authProvider, Restangul
 //    }
 //  });
 //});
+
+//app.run( [
+//        'authSrvc',
+//        function (authSrvc) {
+//            authSrvc.setIcon('/assets/images/logo.jpg');
+//        }]);
